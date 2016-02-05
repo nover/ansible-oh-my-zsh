@@ -1,0 +1,27 @@
+---
+  - name: Ensure zsh is installed
+    apt: name={{item}} state=present
+    with_items:
+      - git
+      - git-core
+      - zsh
+  - name: Clone oh-my-zsh repo
+    git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest={{user_home}}/.oh-my-zsh
+
+  - name: Create conf folder in home directory
+    file: path={{user_home}}/conf/ state=directory owner={{user}}
+
+  - name: Create bin folder in home directory
+    file: path={{user_home}}/bin/ state=directory owner={{user}}
+
+  - name: deploy .zshrc
+    template: src=zshrc.in dest={{user_home}}/conf/zshrc owner={{user}}
+
+  - name: remove standard zshrc
+    file: path={{user_home}}/.zshrc state=absent
+
+  - name: symlink zshrc
+    file: path={{user_home}}/.zshrc src={{user_home}}/conf/zshrc state=link owner={{user}}
+
+  - name: Set zsh as default shell
+    user: name={{user}} shell=/bin/zsh
