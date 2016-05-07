@@ -6,22 +6,28 @@
       - git-core
       - zsh
   - name: Clone oh-my-zsh repo
-    git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest={{user_home}}/.oh-my-zsh
+    git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest={{ohmyzsh_user_home}}/.oh-my-zsh
+    become: no
 
   - name: Create conf folder in home directory
-    file: path={{user_home}}/conf/ state=directory owner={{user}}
-
+    file: path={{ohmyzsh_user_home}}/conf/ state=directory owner={{ohmyzsh_user}}
+    become: no
   - name: Create bin folder in home directory
-    file: path={{user_home}}/bin/ state=directory owner={{user}}
-
+    file: path={{ohmyzsh_user_home}}/bin/ state=directory owner={{ohmyzsh_user}}
+    become: no
+    
   - name: deploy .zshrc
-    template: src=zshrc.in dest={{user_home}}/conf/zshrc owner={{user}}
-
+    template: src=zshrc.in dest={{ohmyzsh_user_home}}/conf/zshrc owner={{ohmyzsh_user}}
+    become: no
+    
   - name: remove standard zshrc
-    file: path={{user_home}}/.zshrc state=absent
-
+    file: path={{ohmyzsh_user_home}}/.zshrc state=absent
+    become: no
+    
   - name: symlink zshrc
-    file: path={{user_home}}/.zshrc src={{user_home}}/conf/zshrc state=link owner={{user}}
-
+    file: path={{ohmyzsh_user_home}}/.zshrc src={{ohmyzsh_user_home}}/conf/zshrc state=link owner={{ohmyzsh_user}}
+    become: no
+    
   - name: Set zsh as default shell
-    user: name={{user}} shell=/bin/zsh
+    user: name={{ohmyzsh_user}} shell=/bin/zsh
+    become: yes
