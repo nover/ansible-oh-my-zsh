@@ -19,9 +19,9 @@ ohmyzsh_user_home: '/home/myuser'
 ohmyzsh_user: 'myuser'
 ```
 
-You can also control the theme that is being installed, default theme is `steef`
+You can also control the theme that is being installed, default theme is `steeef`
 ```yaml
-ohmyzsh_theme: 'steef'
+ohmyzsh_theme: 'steeef'
 ```
 
 Example Playbook
@@ -31,7 +31,7 @@ An example playbook is as follows
 ```yaml
 - hosts: servers
   roles:
-      - { role: nover.ohmyzsh, ohmyzsh_theme: 'robyrussel' }
+      - { role: nover.ohmyzsh, ohmyzsh_theme: 'robbyrussell' }
 ```
 
 License
