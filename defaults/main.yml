@@ -1,0 +1,5 @@
+---
+# defaults file for ohmyzsh
+ohmyzsh_user_home: '/home/vagrant'
+ohmyzsh_user: 'vagrant'
+ohmyzsh_theme: 'steef'
