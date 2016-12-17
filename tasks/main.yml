@@ -8,35 +8,35 @@
     when: ansible_distribution == 'Ubuntu'
 
   - name: Clone oh-my-zsh repo
-    git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest={{ohmyzsh_user_home}}/.oh-my-zsh
+    git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=~/.oh-my-zsh
     become: no
 
   - name: Create conf folder in home directory
-    file: path={{ohmyzsh_user_home}}/conf/ state=directory owner={{ohmyzsh_user}}
+    file: path=~/conf/ state=directory
     become: no
 
   - name: Create bin folder in home directory
-    file: path={{ohmyzsh_user_home}}/bin/ state=directory owner={{ohmyzsh_user}}
+    file: path=~/bin/ state=directory
     become: no
     
   - name: deploy .zshrc
-    template: src=zshrc.in dest={{ohmyzsh_user_home}}/conf/zshrc owner={{ohmyzsh_user}}
+    template: src=zshrc.in dest=~/conf/zshrc
     become: no
     
   - name: remove standard zshrc
-    file: path={{ohmyzsh_user_home}}/.zshrc state=absent
+    file: path=~/.zshrc state=absent
     become: no
     
   - name: symlink zshrc
-    file: path={{ohmyzsh_user_home}}/.zshrc src={{ohmyzsh_user_home}}/conf/zshrc state=link owner={{ohmyzsh_user}}
+    file: path=~/.zshrc src=~/conf/zshrc state=link
     become: no
     
   - name: Set zsh as default shell (Ubuntu)
-    user: name={{ohmyzsh_user}} shell=/bin/zsh
+    user: name={{ansible_user_id}} shell=/bin/zsh
     become: yes
     when: ansible_distribution == 'Ubuntu'  
   
   - name: Set zsh as default shell (macOS)
-    user: name={{ohmyzsh_user}} shell=/usr/local/bin/zsh
+    user: name={{ansible_user_id}} shell=/usr/local/bin/zsh
     become: yes
     when: ansible_distribution == 'MacOSX'
