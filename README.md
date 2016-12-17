@@ -13,13 +13,7 @@ Nothing special except ansible and an Ubuntu or macOS target
 Role Variables
 --------------
 
-The role needs to know which user and homedir to install oh-my-zsh into. Default values are for Vagrant installations, so you might need to override this
-```yaml
-ohmyzsh_user_home: '/home/myuser'
-ohmyzsh_user: 'myuser'
-```
-
-You can also control the theme that is being installed, default theme is `steeef`
+You can control the theme that is being installed, default theme is `steeef`
 ```yaml
 ohmyzsh_theme: 'steeef'
 ```
