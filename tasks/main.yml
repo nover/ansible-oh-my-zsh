@@ -19,13 +19,13 @@
     file: path=~/bin/ state=directory
     become: no
     
-  - name: determine if .zshrc already exist
+  - name: Determine whether .conf/zshrc exist
     stat:
       path: ~/.conf/zshrc
     register: zshrc_exists
     become: no
 
-  - name: deploy .zshrc
+  - name: Deploy .zshrc
     template: src=zshrc.in dest=~/.conf/zshrc
     become: no
     when: zshrc_exists.stat.exists == False 
@@ -38,7 +38,7 @@
     command: mv ~/.zshrc ~/.zshrc.bak
     when: standard_zshrc_stat.stat.exists
   
-  - name: symlink zshrc
+  - name: Symlink zshrc
     file: path=~/.zshrc src=~/.conf/zshrc state=link
     become: no
     
