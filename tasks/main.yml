@@ -30,10 +30,14 @@
     become: no
     when: zshrc_exists.stat.exists == False 
     
-  - name: remove standard zshrc
-    file: path=~/.zshrc state=absent
-    become: no
-    
+  - name: Determine whether standard .zshrc exist
+    stat: path=~/.zshrc
+    register: standard_zshrc_stat
+
+  - name: Rename standard .zshrc
+    command: mv ~/.zshrc ~/.zshrc.bak
+    when: standard_zshrc_stat.stat.exists
+  
   - name: symlink zshrc
     file: path=~/.zshrc src=~/.conf/zshrc state=link
     become: no
