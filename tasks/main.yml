@@ -12,7 +12,7 @@
     become: no
 
   - name: Create conf folder in home directory
-    file: path=~/conf/ state=directory
+    file: path=~/.conf/ state=directory
     become: no
 
   - name: Create bin folder in home directory
@@ -20,7 +20,7 @@
     become: no
     
   - name: deploy .zshrc
-    template: src=zshrc.in dest=~/conf/zshrc
+    template: src=zshrc.in dest=~/.conf/zshrc
     become: no
     
   - name: remove standard zshrc
@@ -28,7 +28,7 @@
     become: no
     
   - name: symlink zshrc
-    file: path=~/.zshrc src=~/conf/zshrc state=link
+    file: path=~/.zshrc src=~/.conf/zshrc state=link
     become: no
     
   - name: Set zsh as default shell (Ubuntu)
