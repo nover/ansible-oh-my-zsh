@@ -5,6 +5,8 @@
       - git
       - git-core
       - zsh
+    when: ansible_distribution == 'Ubuntu'
+
   - name: Clone oh-my-zsh repo
     git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest={{ohmyzsh_user_home}}/.oh-my-zsh
     become: no
@@ -12,6 +14,7 @@
   - name: Create conf folder in home directory
     file: path={{ohmyzsh_user_home}}/conf/ state=directory owner={{ohmyzsh_user}}
     become: no
+
   - name: Create bin folder in home directory
     file: path={{ohmyzsh_user_home}}/bin/ state=directory owner={{ohmyzsh_user}}
     become: no
@@ -28,6 +31,12 @@
     file: path={{ohmyzsh_user_home}}/.zshrc src={{ohmyzsh_user_home}}/conf/zshrc state=link owner={{ohmyzsh_user}}
     become: no
     
-  - name: Set zsh as default shell
+  - name: Set zsh as default shell (Ubuntu)
     user: name={{ohmyzsh_user}} shell=/bin/zsh
     become: yes
+    when: ansible_distribution == 'Ubuntu'  
+  
+  - name: Set zsh as default shell (macOS)
+    user: name={{ohmyzsh_user}} shell=/usr/local/bin/zsh
+    become: yes
+    when: ansible_distribution == 'MacOSX'
