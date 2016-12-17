@@ -1,14 +1,14 @@
 Role Name
 =========
 
-oh my zsh installer for Ubuntu / Debian systems. The original work has been taken from here https://github.com/RaymiiOrg/ansible/blob/master/oh-my-zsh/ohmyzsh.yml
+oh my zsh installer for Ubuntu and macOS systems. The original work has been taken from here https://github.com/RaymiiOrg/ansible/blob/master/oh-my-zsh/ohmyzsh.yml
 
-But I have taken the liberty of converting it into a "real ansible role" and subseqently published it on ansible galaxy.
+I have taken the liberty of converting it into a "real ansible role" and subseqently published it on ansible galaxy.
 
 Requirements
 ------------
 
-Nothing special except ansible and a Debian / Ubuntu target
+Nothing special except ansible and an Ubuntu or macOS target
 
 Role Variables
 --------------
