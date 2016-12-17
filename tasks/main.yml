@@ -12,23 +12,34 @@
     become: no
 
   - name: Create conf folder in home directory
-    file: path=~/conf/ state=directory
+    file: path=~/.conf/ state=directory
     become: no
 
   - name: Create bin folder in home directory
     file: path=~/bin/ state=directory
     become: no
     
-  - name: deploy .zshrc
-    template: src=zshrc.in dest=~/conf/zshrc
+  - name: Determine whether .conf/zshrc exist
+    stat:
+      path: ~/.conf/zshrc
+    register: zshrc_exists
     become: no
-    
-  - name: remove standard zshrc
-    file: path=~/.zshrc state=absent
+
+  - name: Deploy .zshrc
+    template: src=zshrc.in dest=~/.conf/zshrc
     become: no
+    when: zshrc_exists.stat.exists == False 
     
-  - name: symlink zshrc
-    file: path=~/.zshrc src=~/conf/zshrc state=link
+  - name: Determine whether standard .zshrc exist
+    stat: path=~/.zshrc
+    register: standard_zshrc_stat
+
+  - name: Rename standard .zshrc
+    command: mv ~/.zshrc ~/.zshrc.bak
+    when: standard_zshrc_stat.stat.exists
+  
+  - name: Symlink zshrc
+    file: path=~/.zshrc src=~/.conf/zshrc state=link
     become: no
     
   - name: Set zsh as default shell (Ubuntu)
