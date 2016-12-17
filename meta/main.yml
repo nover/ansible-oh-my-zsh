@@ -23,4 +23,5 @@ galaxy_info:
     - ohmyzsh
     - oh-my-zsh
     
-dependencies: []
+dependencies:
+  - { role: geerlingguy.homebrew, when: ansible_distribution == 'MacOSX', vars_file: vars/homebrew.yml }
