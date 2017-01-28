@@ -43,7 +43,7 @@
     become: no
     
   - name: Set zsh as default shell (Ubuntu)
-    user: name={{ansible_user_id}} shell=/bin/zsh
+    user: name={{ansible_user_id}} shell=/usr/bin/zsh
     become: yes
     when: ansible_distribution == 'Ubuntu'  
   
