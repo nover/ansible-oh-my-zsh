@@ -5,7 +5,7 @@
       - git
       - git-core
       - zsh
-    when: ansible_distribution == 'Ubuntu'
+    when: ansible_os_family == 'Debian'
 
   - name: Clone oh-my-zsh repo
     git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=~/.oh-my-zsh
@@ -42,12 +42,12 @@
     file: path=~/.zshrc src=~/.conf/zshrc state=link
     become: no
     
-  - name: Set zsh as default shell (Ubuntu)
+  - name: Set zsh as default shell (Debian)
     user: name={{ansible_user_id}} shell=/usr/bin/zsh
     become: yes
-    when: ansible_distribution == 'Ubuntu'  
+    when: ansible_os_family == 'Debian'  
   
   - name: Set zsh as default shell (macOS)
     user: name={{ansible_user_id}} shell=/usr/local/bin/zsh
     become: yes
-    when: ansible_distribution == 'MacOSX'
+    when: ansible_os_family == 'Darwin'
