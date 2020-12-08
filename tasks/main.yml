@@ -1,10 +1,8 @@
 ---
   - name: Ensure zsh is installed
-    apt: name={{item}} state=present
-    with_items:
-      - git
-      - git-core
-      - zsh
+    apt:
+      name: [git, git-core, zsh]
+      state: present
     when: ansible_os_family == 'Debian'
 
   - name: Clone oh-my-zsh repo
